@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const mongoose = require('mongoose');
+const slugify = require('slugify')
 
 exports.product_get_all_products = (req , res , next) => {
     Product.find()
@@ -13,6 +14,9 @@ exports.product_get_all_products = (req , res , next) => {
                      price : product.price,
                      description : product.description,
                      productImage:product.productImage,
+                     slug : slugify(product.name), 
+                     category : product.category,
+                     reviews : product.reviews,
                      _id : product._id,
                      request : {
                          type : 'GET',
@@ -34,7 +38,9 @@ exports.product_post_product = (req , res , next) => {
         name : req.body.name,
         price : req.body.price,
         description : req.body.description,
-        productImage : req.file.path
+        productImage : req.file.path,
+        slug : slugify(req.body.name),
+        category : req.body.category
     })    
 
     product.save()
@@ -47,6 +53,8 @@ exports.product_post_product = (req , res , next) => {
                 price : product.price,
                 description : product.description,
                 productImage: product.productImage,
+                category: product.category,
+                slug : product.slug,
                 request : {
                     type : 'GET',
                     url : 'http://localhost:2020/products/' + product._id

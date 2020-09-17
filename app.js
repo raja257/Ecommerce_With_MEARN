@@ -10,6 +10,8 @@ const app = express();
 const productRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
 const userRoutes = require('./api/routes/users');
+const adminRoutes = require('./api/routes/admin');
+const categoryRoutes = require('./api/routes/category');
 
 
 app.use(morgan('dev'));
@@ -20,7 +22,11 @@ app.use('/products' , productRoutes);
 app.use('/orders' , orderRoutes);
 app.use('/user' , userRoutes);
 app.use('/uploads' , express.static('uploads'));
-app.use('/profileUpload' , express.static('profileUpload'));
+app.use('/admin' , adminRoutes);
+app.use('/category' , categoryRoutes);
+
+
+
 app.use((req , res , next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header(

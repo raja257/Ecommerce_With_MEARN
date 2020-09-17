@@ -30,7 +30,7 @@ exports.user_create_user = (req, res , next) => {
                         });
                     })
                     .catch(err => {
-                        console.log(result);
+                        console.log(err);
                         res.status(500).json({ error  : err});
                     })
                 }
